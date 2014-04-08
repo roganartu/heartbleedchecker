@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'bundler/setup'
 require 'sinatra'
+require './lib/redis_helper'
 require './lib/heartbleeder'
 require './heartbleedchecker'
 

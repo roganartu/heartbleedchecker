@@ -1,4 +1,9 @@
+require 'redis'
 require 'oj'
+
+configure do
+  REDIS = RedisHelper.new
+end
 
 # Force JSON for all endpoints
 before do
@@ -6,13 +11,18 @@ before do
 end
 
 get '/check/:host' do
-  unless params.has_key?(:host) or params.has_key?('host')
-    status = 'error'
-    result = 'Host parameter is missing'
-  else
-    result = Heartbleeder.check(params[:host])
-    status = ['INSECURE', 'SECURE'].any? { |i| result.include?(i) } ? 'success' : 'error'
+  key = params[:host] || 'nohost'
+  h = REDIS.fetch(key, expire: 3600) do
+    unless params.has_key?(:host) or params.has_key?('host')
+      status = 'error'
+      result = 'Host parameter is missing'
+    else
+      result = Heartbleeder.check(params[:host])
+      status = ['INSECURE', 'SECURE'].any? { |i| result.include?(i) } ? 'success' : 'error'
+    end
+
+    { status: status, data: result }
   end
 
-  Oj.dump({ status: status, data: result })
+  Oj.dump(h)
 end
