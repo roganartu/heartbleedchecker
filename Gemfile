@@ -10,3 +10,6 @@ gem 'puma'
 
 # Redis as a small cache
 gem 'redis'
+
+# Faster JSON
+gem 'oj'
