@@ -9,6 +9,7 @@ ENV['RACK_ENV'] ||= 'production'
 set :environment, ENV['RACK_ENV']
 set :run, false
 set :raise_errors, true
+set :protection, :except => :json_csrf
 
 # Yay, easy multithreading
 configure { set :server, :puma }
