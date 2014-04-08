@@ -5,7 +5,8 @@ require './lib/redis_helper'
 require './lib/heartbleeder'
 require './heartbleedchecker'
 
-set :environment, :development
+ENV['RACK_ENV'] ||= 'production'
+set :environment, ENV['RACK_ENV']
 set :run, false
 set :raise_errors, true
 
