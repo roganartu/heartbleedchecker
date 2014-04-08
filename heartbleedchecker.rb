@@ -12,6 +12,7 @@ end
 # Force JSON for all endpoints
 before do
   headers 'Content-Type' => 'application/json; charset=utf-8'
+  headers 'Access-Control-Allow-Origin' => '*'
 end
 
 get '/check/:host' do
