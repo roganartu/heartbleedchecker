@@ -7,11 +7,12 @@ end
 
 get '/check/:host' do
   unless params.has_key?(:host) or params.has_key?('host')
-    h = { status: 'error', data: 'Host parameter is missing' }
+    status = 'error'
+    result = 'Host parameter is missing'
   else
     result = Heartbleeder.check(params[:host])
-    h = { status: 'success', data: result }
+    status = ['INSECURE', 'SECURE'].any? { |i| result.include?(i) } ? 'success' : 'error'
   end
 
-  Oj.dump(h)
+  Oj.dump({ status: status, data: result })
 end
