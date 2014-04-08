@@ -8,6 +8,7 @@ class RedisHelper
   def fetch(key, opts = {})
     result = nil
 
+    @client.del(key) if opts[:force]
     begin
       result = @client.get(key)
       if result

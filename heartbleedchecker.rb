@@ -12,8 +12,9 @@ end
 
 get '/check/:host' do
   key = params[:host] || 'nohost'
-  h = REDIS.fetch(key, expire: 3600) do
-    unless params.has_key?(:host) or params.has_key?('host')
+  force = params.has_key?('force')
+  h = REDIS.fetch(key, expire: 3600, force: force) do
+    unless params.has_key?('host')
       status = 'error'
       result = 'Host parameter is missing'
     else
