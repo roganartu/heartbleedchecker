@@ -11,8 +11,15 @@ end
 
 # Force JSON for all endpoints
 before do
-  headers 'Content-Type' => 'application/json; charset=utf-8'
   headers 'Access-Control-Allow-Origin' => '*'
+  headers 'Access-Control-Allow-Methods' => 'GET, OPTIONS, HEAD'
+  headers 'Access-Control-Allow-Headers' => 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type'
+
+  # Intercept CORS OPTIONS request here as sinatra does not
+  # have an `options` verb.
+  halt 200 if request.request_method == 'OPTIONS'
+
+  headers 'Content-Type' => 'application/json; charset=utf-8'
 end
 
 get '/check/:host' do
