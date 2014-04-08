@@ -1,6 +1,10 @@
 require 'redis'
 require 'oj'
 
+configure :production do
+  require 'newrelic_rpm'
+end
+
 configure do
   REDIS = RedisHelper.new
 end

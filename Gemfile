@@ -13,3 +13,6 @@ gem 'redis'
 
 # Faster JSON
 gem 'oj'
+
+# Newrelic monitoring
+gem 'newrelic_rpm'

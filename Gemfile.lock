@@ -9,6 +9,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.8.0)
+    newrelic_rpm (3.6.7.159)
     oj (2.5.5)
     puma (2.8.1)
       rack (>= 1.1, < 2.0)
@@ -35,6 +36,7 @@ PLATFORMS
 
 DEPENDENCIES
   capistrano
+  newrelic_rpm
   oj
   puma
   redis
